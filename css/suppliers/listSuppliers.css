@@ -1,0 +1,54 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #fff;
+    margin: 0;
+    padding: 0;
+    color: #0056b3;
+}
+
+.categorias-title {
+    font-size: 24px;
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.categorias-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.lista-categorias {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    max-width: 600px;
+}
+
+.categoria-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #fff;
+}
+
+.categoria-item:last-child {
+    border-bottom: none;
+}
+
+.delete-icon {
+    text-decoration: none;
+}
+
+.delete-icon {
+    width: 20px;
+    transition: transform 0.3s ease;
+}
+
+.delete-icon:hover {
+    transform: scale(1.2);
+}

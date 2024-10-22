@@ -1,0 +1,88 @@
+body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+        }
+
+        .logo-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .logo-container img {
+            width: 900px;
+        }
+
+        .container {
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 20px;
+            padding: 40px;
+            width: 400px;
+            text-align: center;
+             /* Ajuste para separar del nav */
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #001C73;
+        }
+
+        .input-container {
+            margin-bottom: 20px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            font-size: 16px;
+        }
+
+        button {
+            background-color: #001C73;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0035DB;
+        }
+
+        .button-container {
+            margin-top: 20px;
+        }
+
+        .button-container a {
+            color: #001C73;
+            text-decoration: none;
+            margin-left: 10px;
+            font-size: 16px;
+        }
+
+        .button-container a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 500px) {
+            .container {
+                width: 90%;
+            }
+        }

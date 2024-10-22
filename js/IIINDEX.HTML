@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clasificación de Imágenes con ml5.js</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ml5/1.0.0/ml5.min.js"></script>
+</head>
+<body>
+    <h1>Clasificación de Imágenes</h1>
+    <input type="file" id="fileInput" accept="image/*">
+    <img id="image" src="" alt="Imagen a clasificar" style="display: none;">
+    <p id="result"></p>
+
+    <script>
+        const fileInput = document.getElementById('fileInput');
+        const image = document.getElementById('image');
+        const result = document.getElementById('result');
+
+        fileInput.addEventListener('change', async (event) => {
+            const file = event.target.files[0];
+            const reader = new FileReader();
+
+            reader.onload = function(e) {
+                image.src = e.target.result;
+                image.style.display = 'block';
+                classifyImage(image);
+            };
+
+            reader.readAsDataURL(file);
+        });
+
+        async function classifyImage(img) {
+            const classifier = ml5.imageClassifier('MobileNet', modelReady);
+            function modelReady() {
+                classifier.classify(img, gotResult);
+            }
+            function gotResult(err, results) {
+                if (err) {
+                    console.error(err);
+                    return;
+                }
+                result.innerHTML = `Predicción: ${results[0].label}, Confianza: ${results[0].confidence.toFixed(4)}`;
+            }
+        }
+    </script>
+</body>
+</html>

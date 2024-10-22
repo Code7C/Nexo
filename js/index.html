@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Escanear y Digitalizar PDF</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@2.1.1/dist/tesseract.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        input, button {
+            margin: 10px 0;
+        }
+        #output {
+            margin-top: 20px;
+        }
+        .loader {
+            display: none;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Escanear y Digitalizar PDF</h1>
+    <input type="file" id="fileInput" accept=".pdf">
+    <button onclick="processPDF()">Procesar PDF</button>
+    <div class="loader" id="loader">Cargando...</div>
+    <div id="output"></div>
+
+    <script>
+        async function processPDF() {
+    const fileInput = document.getElementById('fileInput');
+    const output = document.getElementById('output');
+    const loader = document.getElementById('loader');
+    output.innerHTML = '';
+    loader.style.display = 'none';
+
+    if (fileInput.files.length === 0) {
+        alert('Por favor, selecciona un archivo PDF.');
+        return;
+    }
+
+    const file = fileInput.files[0];
+    const fileReader = new FileReader();
+
+    fileReader.onload = async function(event) {
+        const pdfData = new Uint8Array(event.target.result);
+        const pdf = await pdfjsLib.getDocument(pdfData).promise;
+
+        loader.style.display = 'block';
+
+        for (let i = 1; i <= pdf.numPages; i++) {
+            const page = await pdf.getPage(i);
+            const viewport = page.getViewport({ scale: 2 }); // Aumenta la escala
+            const canvas = document.createElement('canvas');
+            canvas.width = viewport.width;
+            canvas.height = viewport.height;
+            const context = canvas.getContext('2d');
+
+            await page.render({ canvasContext: context, viewport: viewport }).promise;
+
+            // Aplica Tesseract.js para extraer texto
+            Tesseract.recognize(
+                canvas,
+                'spa',
+                {
+                    logger: m => console.log(m),
+                    tessedit_char_whitelist: '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz' // Ajusta según sea necesario
+                }
+            ).then(({ data: { text } }) => {
+                output.innerHTML += `<h3>Página ${i}</h3><pre>${text}</pre>`;
+                loader.style.display = 'none';
+            }).catch(err => {
+                console.error(err);
+                output.innerHTML += `<p>Error al procesar la página ${i}.</p>`;
+            });
+        }
+    };
+
+    fileReader.readAsArrayBuffer(file);
+}
+
+    </script>
+</body>
+</html>

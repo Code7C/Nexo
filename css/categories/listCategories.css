@@ -1,0 +1,55 @@
+.categories-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+.categoriesSection {
+    margin-top: 40px;
+    text-align: center;
+}
+.categoriesTitle {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.categories-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.categories-item {
+    background-color: #fff;
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.categories-item a {
+    text-decoration: none;
+}
+
+.delete-icon {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .categories-container {
+        width: 90%;
+    }
+
+    .categories-section {
+        width: 90%;
+    }
+}
